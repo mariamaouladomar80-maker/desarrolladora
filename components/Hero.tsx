@@ -124,17 +124,18 @@ export default function Hero() {
 
             {/* Redes sociales */}
             <div className="flex justify-center lg:justify-start gap-4 pt-4 animate-fade-in delay-500 py-15">
-              <a href="https://github.com" target="_blank" rel="noopener noreferrer" 
+              <a href="https://github.com/mariamaouladomar80-maker" target="_blank" rel="noopener noreferrer" 
                 className="p-3 rounded-full bg-slate-800 border border-slate-700 hover:border-amber-500 hover:text-amber-500 transition-all duration-300 hover:scale-110">
-                <Code2 className="w-5 h-5" />
+                <img src="git.svg" width={30} alt="" />
+
               </a>
               <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer"
                 className="p-3 rounded-full bg-slate-800 border border-slate-700 hover:border-amber-500 hover:text-amber-500 transition-all duration-300 hover:scale-110">
-                <User className="w-5 h-5" />
+                 <img src="link.svg" width={25} alt="" />
               </a>
-              <a href="mailto:email@ejemplo.com"
+              <a href="mariamaouladomar80@gmail"
                 className="p-3 rounded-full bg-slate-800 border border-slate-700 hover:border-amber-500 hover:text-amber-500 transition-all duration-300 hover:scale-110">
-                <Mail className="w-5 h-5" />
+                 <img src="gmail.svg" width={30} alt="" />
               </a>
             </div>
           </div>
