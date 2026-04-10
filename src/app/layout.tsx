@@ -15,8 +15,8 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Mariam Aoulad Omar | Desarrolladora & Ingeniera",
-  description: "Portfolio profesional de Mariam Aoulad Omar - Desarrolladora Junior e Ingeniera Electrónica Industrial y Automática",
+  title: "Portafolio | Desarrolladora",
+  description: "Portfolio profesional de Mariam Aoulad Omar - Desarrolladora Junior",
 };
 
 export default function RootLayout({

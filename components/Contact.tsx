@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { Mail, User, Code2, Send, MapPin, Phone } from "lucide-react";
+import { Mail, User, Code2, Send, MapPin } from "lucide-react";
 
 const contactInfo = [
   { icon: Mail, label: "Email", value: "mariamaouladomar80@gmail.com", href: "mailto:mariamaouladomar80@gmail.com" },
@@ -37,12 +37,25 @@ export default function Contact() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
-    // Simular envío
-    await new Promise(resolve => setTimeout(resolve, 1500));
-    setIsSubmitting(false);
-    setSubmitted(true);
-    setFormData({ name: "", email: "", message: "" });
-    setTimeout(() => setSubmitted(false), 3000);
+
+    const form = e.target as HTMLFormElement;
+    const formDataNetlify = new FormData(form);
+
+    try {
+      await fetch("/", {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: new URLSearchParams(formDataNetlify as any).toString(),
+      });
+
+      setSubmitted(true);
+      setFormData({ name: "", email: "", message: "" });
+      setTimeout(() => setSubmitted(false), 3000);
+    } catch (error) {
+      console.error("Error:", error);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -96,7 +109,24 @@ export default function Contact() {
 
           {/* Columna derecha - Formulario */}
           <div className={`transition-all duration-1000 delay-300 ${isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-10'}`}>
-            <form onSubmit={handleSubmit} className="space-y-6 bg-slate-900/50 backdrop-blur-sm border border-slate-700 rounded-3xl p-8">
+            <form 
+              name="contact" 
+              method="POST" 
+              data-netlify="true" 
+              data-netlify-honeypot="bot-field"
+              onSubmit={handleSubmit} 
+              className="space-y-6 bg-slate-900/50 backdrop-blur-sm border border-slate-700 rounded-3xl p-8"
+            >
+              {/* Campo oculto requerido por Netlify */}
+              <input type="hidden" name="form-name" value="contact" />
+              
+              {/* Honeypot - protección anti-spam (oculto) */}
+              <p className="hidden">
+                <label>
+                  No llenes esto si eres humano: <input name="bot-field" />
+                </label>
+              </p>
+
               <div>
                 <label htmlFor="name" className="block text-sm font-medium text-slate-300 mb-2">
                   Nombre
@@ -104,6 +134,7 @@ export default function Contact() {
                 <input
                   type="text"
                   id="name"
+                  name="name"
                   value={formData.name}
                   onChange={(e) => setFormData({...formData, name: e.target.value})}
                   className="w-full px-4 py-3 bg-slate-800 border border-slate-600 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:border-amber-500 focus:ring-1 focus:ring-amber-500 transition-all"
@@ -119,6 +150,7 @@ export default function Contact() {
                 <input
                   type="email"
                   id="email"
+                  name="email"
                   value={formData.email}
                   onChange={(e) => setFormData({...formData, email: e.target.value})}
                   className="w-full px-4 py-3 bg-slate-800 border border-slate-600 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:border-amber-500 focus:ring-1 focus:ring-amber-500 transition-all"
@@ -133,6 +165,7 @@ export default function Contact() {
                 </label>
                 <textarea
                   id="message"
+                  name="message"
                   rows={4}
                   value={formData.message}
                   onChange={(e) => setFormData({...formData, message: e.target.value})}
@@ -165,7 +198,7 @@ export default function Contact() {
         {/* Footer */}
         <div className="mt-20 pt-8 border-t border-slate-800 text-center text-slate-500 text-sm">
           <p>© 2026 Mariam Aoulad Omar. Todos los derechos reservados.</p>
-          <p className="mt-2">Diseñado y desarrollado con ❤️ y mucho ☕</p>
+          <p className="mt-2">Diseñado y desarrollado con actitud y mucho ❤️</p>
         </div>
       </div>
     </section>

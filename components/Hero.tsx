@@ -122,20 +122,34 @@ export default function Hero() {
               </a>
             </div>
 
-            {/* Redes sociales */}
+            {/* Redes sociales - CORREGIDO */}
             <div className="flex justify-center lg:justify-start gap-4 pt-4 animate-fade-in delay-500 py-15">
-              <a href="https://github.com/mariamaouladomar80-maker" target="_blank" rel="noopener noreferrer" 
-                className="p-3 rounded-full bg-slate-800 border border-slate-700 hover:border-amber-500 hover:text-amber-500 transition-all duration-300 hover:scale-110">
-                <img src="git.svg" width={30} alt="" />
+              {/* GitHub - Funciona */}
+              <a 
+                href="https://github.com/mariamaouladomar80-maker" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="p-3 rounded-full bg-slate-800 border border-slate-700 hover:border-amber-500 hover:text-amber-500 transition-all duration-300 hover:scale-110"
+              >
+                <img src="git.svg" width={30} alt="GitHub" />
+              </a>
 
-              </a>
-              <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer"
-                className="p-3 rounded-full bg-slate-800 border border-slate-700 hover:border-amber-500 hover:text-amber-500 transition-all duration-300 hover:scale-110">
-                 <img src="link.svg" width={25} alt="" />
-              </a>
-              <a href="mariamaouladomar80@gmail"
-                className="p-3 rounded-full bg-slate-800 border border-slate-700 hover:border-amber-500 hover:text-amber-500 transition-all duration-300 hover:scale-110">
-                 <img src="gmail.svg" width={30} alt="" />
+              {/* LinkedIn - Muestra "Próximamente" al hacer clic */}
+              <button
+                onClick={() => alert("¡Próximamente! Mi perfil de LinkedIn estará disponible muy pronto.")}
+                className="p-3 rounded-full bg-slate-800 border border-slate-700 hover:border-amber-500 hover:text-amber-500 transition-all duration-300 hover:scale-110 opacity-60 hover:opacity-100 cursor-pointer"
+                title="Próximamente"
+              >
+                <img src="link.svg" width={25} alt="LinkedIn" />
+              </button>
+
+              {/* Email - CORREGIDO: ahora abre el cliente de correo */}
+              <a 
+                href="mailto:mariamaouladomar80@gmail.com"
+                className="p-3 rounded-full bg-slate-800 border border-slate-700 hover:border-amber-500 hover:text-amber-500 transition-all duration-300 hover:scale-110"
+                title="Enviar email"
+              >
+                <img src="gmail.svg" width={30} alt="Email" />
               </a>
             </div>
           </div>
