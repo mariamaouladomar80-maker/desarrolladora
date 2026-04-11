@@ -34,28 +34,19 @@ export default function Contact() {
     return () => observer.disconnect();
   }, []);
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleSubmit = (e: React.FormEvent) => {
+    // Formspree maneja el envío real, nosotros solo las animaciones
     setIsSubmitting(true);
-
-    const form = e.target as HTMLFormElement;
-    const formDataNetlify = new FormData(form);
-
-    try {
-      await fetch("/", {
-        method: "POST",
-        headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        body: new URLSearchParams(formDataNetlify as any).toString(),
-      });
-
+    
+    // El formulario se envía normalmente a Formspree
+    // La página se recargará brevemente
+    
+    setTimeout(() => {
       setSubmitted(true);
       setFormData({ name: "", email: "", message: "" });
-      setTimeout(() => setSubmitted(false), 3000);
-    } catch (error) {
-      console.error("Error:", error);
-    } finally {
       setIsSubmitting(false);
-    }
+      setTimeout(() => setSubmitted(false), 3000);
+    }, 1000);
   };
 
   return (
@@ -107,26 +98,14 @@ export default function Contact() {
             </div>
           </div>
 
-          {/* Columna derecha - Formulario */}
+          {/* Columna derecha - Formulario con FORMSPREE */}
           <div className={`transition-all duration-1000 delay-300 ${isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-10'}`}>
             <form 
-              name="contact" 
-              method="POST" 
-              data-netlify="true" 
-              data-netlify-honeypot="bot-field"
-              onSubmit={handleSubmit} 
+              action="https://formspree.io/f/xojpgegb"
+              method="POST"
+              onSubmit={handleSubmit}
               className="space-y-6 bg-slate-900/50 backdrop-blur-sm border border-slate-700 rounded-3xl p-8"
             >
-              {/* Campo oculto requerido por Netlify */}
-              <input type="hidden" name="form-name" value="contact" />
-              
-              {/* Honeypot - protección anti-spam (oculto) */}
-              <p className="hidden">
-                <label>
-                  No llenes esto si eres humano: <input name="bot-field" />
-                </label>
-              </p>
-
               <div>
                 <label htmlFor="name" className="block text-sm font-medium text-slate-300 mb-2">
                   Nombre
